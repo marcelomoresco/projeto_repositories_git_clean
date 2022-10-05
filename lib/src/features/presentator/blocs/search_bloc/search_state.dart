@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'search_bloc.dart';
 
 abstract class SearchState extends Equatable {
@@ -11,6 +12,23 @@ class SearchInitialState extends SearchState {}
 
 class SearchLoadingState extends SearchState {}
 
-class SearchLoadedState extends SearchState {}
+class SearchLoadedState extends SearchState {
+  final UserEntity user;
 
-class SearchErrorState extends SearchState {}
+  const SearchLoadedState({
+    required this.user,
+  });
+
+  @override
+  List<Object> get props => [user];
+}
+
+class SearchErrorState extends SearchState {
+  final String errorMessage;
+  const SearchErrorState({
+    required this.errorMessage,
+  });
+
+  @override
+  List<Object> get props => [errorMessage];
+}
