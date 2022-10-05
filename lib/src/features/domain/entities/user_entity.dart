@@ -5,21 +5,21 @@ class UserEntity extends Equatable {
   final int id;
   final String login;
   final String avatar_url;
-  final String name;
-  final String bio;
-  final String location;
-  final int followers;
-  final int following;
+  final String? name;
+  final String? bio;
+  final String? location;
+  final int? followers;
+  final int? following;
 
   const UserEntity({
     required this.id,
     required this.login,
     required this.avatar_url,
-    required this.name,
-    required this.bio,
-    required this.location,
-    required this.followers,
-    required this.following,
+    this.name,
+    this.bio,
+    this.location,
+    this.followers,
+    this.following,
   });
 
   @override
