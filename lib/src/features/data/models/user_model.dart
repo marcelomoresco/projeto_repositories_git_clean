@@ -1,7 +1,7 @@
 import 'package:projeto_repositories_git_clean/src/features/domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
-  UserModel({
+  const UserModel({
     required int id,
     required String login,
     required String avatar_url,
@@ -43,7 +43,7 @@ class UserModel extends UserEntity {
       "bio": bio,
       "location": location,
       "followers": followers,
-      "following": following,
+      "following": following
     };
   }
 }

@@ -7,10 +7,10 @@ import 'package:projeto_repositories_git_clean/src/features/domain/repositories/
 import '../../../../core/usecases/usecase.dart';
 import '../../entities/user_entity.dart';
 
-class SaveUsersUsecase implements Usecase<Unit, UserEntity> {
+class SaveUserUsecase implements Usecase<Unit, UserEntity> {
   final IGithubRepository githubRepository;
 
-  SaveUsersUsecase({
+  SaveUserUsecase({
     required this.githubRepository,
   });
 
