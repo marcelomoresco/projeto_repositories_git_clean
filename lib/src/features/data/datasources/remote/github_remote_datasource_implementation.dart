@@ -18,8 +18,28 @@ class GithubRemoteDatasourceImplementation implements IGithubRemoteDataSource {
   });
 
   @override
-  Future<List<UserGitRepositoriesModel>> getGitRepositories(String username) {
-    throw UnimplementedError();
+  Future<List<UserGitRepositoriesModel>> getGitRepositories(
+      String username) async {
+    final response = await client.get(
+      Uri.parse("https://api.github.com/users/$username/repos"),
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      var models = jsonDecode(response.body);
+      List<UserGitRepositoriesModel> gitModels = [];
+
+      //testado!
+      for (var model in models) {
+        UserGitRepositoriesModel gitModel =
+            UserGitRepositoriesModel.fromJson(model);
+        gitModels.add(gitModel);
+      }
+
+      return gitModels;
+    } else {
+      throw ServerException();
+    }
   }
 
   @override
