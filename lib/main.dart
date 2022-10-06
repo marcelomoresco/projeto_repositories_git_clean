@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_repositories_git_clean/src/features/presentator/views/home/home_page.dart';
+import 'package:projeto_repositories_git_clean/src/features/presentator/blocs/favorites_bloc/favorites_bloc.dart';
+import 'package:projeto_repositories_git_clean/src/features/presentator/blocs/search_bloc/search_bloc.dart';
+import 'package:projeto_repositories_git_clean/src/features/presentator/blocs/users_details_bloc/users_bloc.dart';
 import 'package:projeto_repositories_git_clean/src/features/presentator/views/splash/splash_page.dart';
 import 'src/core/injection/injection_container.dart' as di;
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,9 +18,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SplashPage(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<FavoritesBloc>(
+          create: (_) => di.sl<FavoritesBloc>(),
+        ),
+        BlocProvider<SearchBloc>(
+          create: (_) => di.sl<SearchBloc>(),
+        ),
+        BlocProvider<UsersBloc>(
+          create: (_) => di.sl<UsersBloc>(),
+        ),
+      ],
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SplashPage(),
+      ),
     );
   }
 }

@@ -18,3 +18,14 @@ class GetUserInfoEvent extends SearchEvent {
   @override
   List<Object> get props => [username];
 }
+
+class GetUserRepositoriesGitEvent extends SearchEvent {
+  final String username;
+
+  const GetUserRepositoriesGitEvent({
+    required this.username,
+  });
+
+  @override
+  List<Object> get props => [username];
+}

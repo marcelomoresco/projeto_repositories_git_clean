@@ -23,7 +23,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
       GetFavoritesEvent event, Emitter<FavoritesState> emit) async {
     emit(FavoritesLoadingState());
     try {
-      final result = await getFavoritesUsersUsecase.call(NoParams());
+      final result = await getFavoritesUsersUsecase(NoParams());
       print(result);
       result.fold(
         (failed) => emit(const FavoritesErrorState(

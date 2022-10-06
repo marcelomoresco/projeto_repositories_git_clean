@@ -5,7 +5,7 @@ abstract class SearchState extends Equatable {
   const SearchState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class SearchInitialState extends SearchState {}
@@ -13,14 +13,16 @@ class SearchInitialState extends SearchState {}
 class SearchLoadingState extends SearchState {}
 
 class SearchLoadedState extends SearchState {
-  final UserEntity user;
+  final UserEntity? user;
+  final UserGitRepositoriesEntity? usersGit;
 
   const SearchLoadedState({
-    required this.user,
+    this.usersGit,
+    this.user,
   });
 
   @override
-  List<Object> get props => [user];
+  List<Object?> get props => [user, usersGit];
 }
 
 class SearchErrorState extends SearchState {

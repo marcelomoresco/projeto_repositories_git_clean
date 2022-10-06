@@ -21,23 +21,4 @@ class GetFavoritesEvent extends FavoritesEvent {
   List<Object> get props => [getFavoritesUsersUsecase];
 }
 
-class AddFavoritesEvent extends FavoritesEvent {
-  final UserGitRepositoriesEntity githubRepositories;
-  const AddFavoritesEvent({
-    required this.githubRepositories,
-  });
-
-  @override
-  List<Object> get props => [githubRepositories];
-}
-
-class RemoveFavoritesEvent extends FavoritesEvent {
-  final UserGitRepositoriesEntity githubRepositories;
-
-  const RemoveFavoritesEvent({
-    required this.githubRepositories,
-  });
-
-  @override
-  List<Object> get props => [githubRepositories];
-}
+class RemoveUserFromFavoritesEvent extends FavoritesEvent {}

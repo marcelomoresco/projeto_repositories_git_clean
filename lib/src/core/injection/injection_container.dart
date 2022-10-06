@@ -8,6 +8,9 @@ import 'package:projeto_repositories_git_clean/src/features/domain/usecases/git_
 import 'package:projeto_repositories_git_clean/src/features/domain/usecases/users/get_user_usecase.dart';
 import 'package:projeto_repositories_git_clean/src/features/domain/usecases/users/get_users_by_name_usecase.dart';
 import 'package:projeto_repositories_git_clean/src/features/domain/usecases/users/save_users_usecase.dart';
+import 'package:projeto_repositories_git_clean/src/features/presentator/blocs/favorites_bloc/favorites_bloc.dart';
+import 'package:projeto_repositories_git_clean/src/features/presentator/blocs/search_bloc/search_bloc.dart';
+import 'package:projeto_repositories_git_clean/src/features/presentator/blocs/users_details_bloc/users_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../../features/data/datasources/local/github_local_datasource.dart';
@@ -22,7 +25,10 @@ Future<void> init() async {
   //features
 
   //bloc
-
+  sl.registerFactory(
+      () => SearchBloc(getUserUseCase: sl(), getGitRepositoriesUsecase: sl()));
+  sl.registerFactory(() => FavoritesBloc(getFavoritesUsersUsecase: sl()));
+  sl.registerFactory(() => UsersBloc(getUsersByNameUsecase: sl()));
   //usecases
   sl.registerLazySingleton(
       () => GetFavoritesUsersUsecase(githubRepository: sl()));
