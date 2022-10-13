@@ -1,17 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-part of 'search_bloc.dart';
+part of 'repositories_bloc.dart';
 
-abstract class SearchEvent extends Equatable {
-  const SearchEvent();
+abstract class RepositoriesEvent extends Equatable {
+  const RepositoriesEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class GetUserInfoEvent extends SearchEvent {
+class GetUserRepositoriesEvent extends RepositoriesEvent {
   final String username;
 
-  const GetUserInfoEvent({
+  const GetUserRepositoriesEvent({
     required this.username,
   });
 

@@ -11,6 +11,6 @@ abstract class IGithubRepository {
   Future<Either<Failure, Unit>> saveUser(UserEntity user);
   Future<Either<Failure, UsersEntity>> getFavoritesUsers();
   Future<Either<Failure, UsersEntity>> getUserByName(String name);
-  Future<Either<Failure, UserGitRepositoriesEntity>> getGitRepositories(
+  Future<Either<Failure, List<UserGitRepositoriesEntity>>> getGitRepositories(
       String username);
 }

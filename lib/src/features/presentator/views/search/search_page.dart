@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projeto_repositories_git_clean/src/features/presentator/blocs/search_bloc/search_bloc.dart';
+import 'package:projeto_repositories_git_clean/src/features/presentator/blocs/user_repositories_bloc/repositories_bloc.dart';
 import 'package:projeto_repositories_git_clean/src/features/presentator/views/details/details_page.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -13,7 +13,6 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final textController = TextEditingController();
-
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -25,7 +24,7 @@ class _SearchPageState extends State<SearchPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text('Pesquise um Perfil'),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             Padding(
@@ -73,10 +72,17 @@ class _SearchPageState extends State<SearchPage> {
               child: ElevatedButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    context.read<SearchBloc>().add(
-                        GetUserInfoEvent(username: textController.text.trim()));
+                    context.read<SearchBloc>().add(GetUserInfoEvent(
+                          username: textController.text.trim(),
+                        ));
+
+                    context.read<RepositoriesBloc>().add(
+                          GetUserRepositoriesEvent(
+                            username: textController.text.trim(),
+                          ),
+                        );
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => DetailsPage(),
+                      builder: (_) => const DetailsPage(),
                     ));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

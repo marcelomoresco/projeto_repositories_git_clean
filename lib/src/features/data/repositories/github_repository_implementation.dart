@@ -97,18 +97,14 @@ class GithutRepositoryImplementation implements IGithubRepository {
   }
 
   @override
-  Future<Either<Failure, UserGitRepositoriesEntity>> getGitRepositories(
+  Future<Either<Failure, List<UserGitRepositoriesEntity>>> getGitRepositories(
       String username) async {
-    /*if (await networkInfo.isConnected) {
-      try {
-        final users = await githubRemoteDataSource.getGitRepositories(username);
-        return Right(users);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      return Left(OfflineFailure());
-    }*/
-    throw UnimplementedError();
+    try {
+      final usersRepo =
+          await githubRemoteDataSource.getGitRepositories(username);
+      return Right(usersRepo);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
   }
 }

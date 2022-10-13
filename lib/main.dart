@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_repositories_git_clean/src/features/presentator/blocs/favorites_bloc/favorites_bloc.dart';
 import 'package:projeto_repositories_git_clean/src/features/presentator/blocs/search_bloc/search_bloc.dart';
+import 'package:projeto_repositories_git_clean/src/features/presentator/blocs/user_repositories_bloc/repositories_bloc.dart';
 import 'package:projeto_repositories_git_clean/src/features/presentator/blocs/users_details_bloc/users_bloc.dart';
 import 'package:projeto_repositories_git_clean/src/features/presentator/views/splash/splash_page.dart';
 import 'src/core/injection/injection_container.dart' as di;
@@ -28,6 +29,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<UsersBloc>(
           create: (_) => di.sl<UsersBloc>(),
+        ),
+        BlocProvider<RepositoriesBloc>(
+          create: (_) => di.sl<RepositoriesBloc>(),
         ),
       ],
       child: const MaterialApp(

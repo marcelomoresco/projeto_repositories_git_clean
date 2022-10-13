@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projeto_repositories_git_clean/src/features/domain/entities/user_entity.dart';
+
+import '../blocs/user_repositories_bloc/repositories_bloc.dart';
 
 class ProfileDetailsPage extends StatelessWidget {
   final UserEntity user;
@@ -48,7 +51,7 @@ class ProfileDetailsPage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   ClipRRect(
@@ -61,7 +64,7 @@ class ProfileDetailsPage extends StatelessWidget {
                           const Center(child: CircularProgressIndicator()),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -74,7 +77,7 @@ class ProfileDetailsPage extends StatelessWidget {
                     child: Center(
                       child: Text(
                         user.name!,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -82,33 +85,62 @@ class ProfileDetailsPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.computer),
+                      const Icon(Icons.computer),
                       Text(user.bio!),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.location_on_rounded,
                         color: Colors.black,
                       ),
                       Text(user.location!),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-                  Divider(
+                  const Divider(
                     thickness: 2,
                     height: 2,
                     color: Colors.black,
+                  ),
+                  BlocBuilder<RepositoriesBloc, RepositoriesState>(
+                    builder: (context, state) {
+                      if (state is RepositoriesLoadedState) {
+                        return ListView.builder(
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(
+                                  state.userGitRepositoriesEntity[index].name),
+                              subtitle: Text(state
+                                  .userGitRepositoriesEntity[index]
+                                  .description),
+                            );
+                          },
+                        );
+                      } else if (state is RepositoriesLoadingState) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (state is RepositoriesErrorState) {
+                        return Center(
+                          child: Text(state.errorMessage),
+                        );
+                      } else {
+                        return const Center(
+                          child: Text("Algo deu muito errado.....!"),
+                        );
+                      }
+                    },
                   )
                 ],
               ),

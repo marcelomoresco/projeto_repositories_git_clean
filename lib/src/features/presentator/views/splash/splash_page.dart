@@ -11,7 +11,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   void _onLoading() async {
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 4));
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (_) => const HomePage(),
@@ -29,6 +29,7 @@ class _SplashPageState extends State<SplashPage> {
     final sizePhone = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SizedBox(
         height: sizePhone.height,
         width: sizePhone.width,
@@ -47,12 +48,17 @@ class _SplashPageState extends State<SplashPage> {
                 children: [
                   Image.asset(
                     'assets/logo.png',
-                    height: 100,
+                    color: Colors.black,
+                    height: 250,
                   ),
                   const SizedBox(height: 10),
                   const Text(
                     'GitHub Pesquisa',
-                    style: TextStyle(fontSize: 19),
+                    style: TextStyle(
+                      fontSize: 19,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),

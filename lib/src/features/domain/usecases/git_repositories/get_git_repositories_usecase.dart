@@ -8,7 +8,7 @@ import 'package:projeto_repositories_git_clean/src/features/domain/repositories/
 import '../../../../core/usecases/usecase.dart';
 
 class GetGitRepositoriesUsecase
-    implements Usecase<UserGitRepositoriesEntity, String> {
+    implements Usecase<List<UserGitRepositoriesEntity>, String> {
   final IGithubRepository githubRepository;
 
   GetGitRepositoriesUsecase({
@@ -16,7 +16,8 @@ class GetGitRepositoriesUsecase
   });
 
   @override
-  Future<Either<Failure, UserGitRepositoriesEntity>> call(String username) {
+  Future<Either<Failure, List<UserGitRepositoriesEntity>>> call(
+      String username) {
     return githubRepository.getGitRepositories(username);
   }
 }
