@@ -32,11 +32,11 @@ class ProfileDetailsPage extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 120,
+            top: 60,
             left: 25,
             child: Container(
               width: MediaQuery.of(context).size.width - 40,
-              height: 400,
+              height: 500,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(15),
@@ -49,100 +49,112 @@ class ProfileDetailsPage extends StatelessWidget {
                   )
                 ],
               ),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(19),
-                    child: CachedNetworkImage(
-                      imageUrl: user.avatar_url,
-                      height: 2 * imageRadius,
-                      width: 2 * imageRadius,
-                      placeholder: (_, __) =>
-                          const Center(child: CircularProgressIndicator()),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 20,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    height: 20,
-                    width: MediaQuery.of(context).size.width / 2,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(15),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(19),
+                      child: CachedNetworkImage(
+                        imageUrl: user.avatar_url,
+                        height: 2 * imageRadius,
+                        width: 2 * imageRadius,
+                        placeholder: (_, __) =>
+                            const Center(child: CircularProgressIndicator()),
+                      ),
                     ),
-                    child: Center(
-                      child: Text(
-                        user.name!,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      height: 20,
+                      width: MediaQuery.of(context).size.width / 2,
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Center(
+                        child: Text(
+                          user.name!,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.computer),
-                      Text(user.bio!),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.location_on_rounded,
-                        color: Colors.black,
-                      ),
-                      Text(user.location!),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Divider(
-                    thickness: 2,
-                    height: 2,
-                    color: Colors.black,
-                  ),
-                  BlocBuilder<RepositoriesBloc, RepositoriesState>(
-                    builder: (context, state) {
-                      if (state is RepositoriesLoadedState) {
-                        return ListView.builder(
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text(
-                                  state.userGitRepositoriesEntity[index].name),
-                              subtitle: Text(state
-                                  .userGitRepositoriesEntity[index]
-                                  .description),
-                            );
-                          },
-                        );
-                      } else if (state is RepositoriesLoadingState) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else if (state is RepositoriesErrorState) {
-                        return Center(
-                          child: Text(state.errorMessage),
-                        );
-                      } else {
-                        return const Center(
-                          child: Text("Algo deu muito errado.....!"),
-                        );
-                      }
-                    },
-                  )
-                ],
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.computer),
+                        Text(user.bio!),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.location_on_rounded,
+                          color: Colors.black,
+                        ),
+                        Text(user.location!),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Divider(
+                      thickness: 2,
+                      height: 2,
+                      color: Colors.black,
+                    ),
+                    BlocBuilder<RepositoriesBloc, RepositoriesState>(
+                      builder: (context, state) {
+                        if (state is RepositoriesLoadedState) {
+                          return ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: state.userGitRepositoriesEntity.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                title: Text(
+                                    state.userGitRepositoriesEntity[index].name,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold)),
+                                subtitle: state.userGitRepositoriesEntity[index]
+                                            .description ==
+                                        null
+                                    ? const Text("Sem Descrição")
+                                    : Text(state
+                                        .userGitRepositoriesEntity[index]
+                                        .description),
+                              );
+                            },
+                          );
+                        } else if (state is RepositoriesLoadingState) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else if (state is RepositoriesErrorState) {
+                          return Center(
+                            child: Text(state.errorMessage),
+                          );
+                        } else {
+                          return const Center(
+                            child: Text("Algo deu muito errado.....!"),
+                          );
+                        }
+                      },
+                    )
+                  ],
+                ),
               ),
             ),
           ),

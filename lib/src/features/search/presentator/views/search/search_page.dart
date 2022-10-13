@@ -55,9 +55,7 @@ class _SearchPageState extends State<SearchPage> {
                         fontWeight: FontWeight.w500),
                   ),
                   validator: (value) {
-                    if (value == null) {
-                      return "Campo Obrigatório";
-                    } else if (value.isEmpty) {
+                    if (value == null || value.isEmpty) {
                       return "Campo Obrigatório";
                     } else {
                       return null;
@@ -66,8 +64,8 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            Container(
+            const SizedBox(height: 20),
+            SizedBox(
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
