@@ -93,7 +93,7 @@ class ProfileDetailsPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Icon(Icons.computer),
-                        Text(user.bio!),
+                        Text(user.bio == null ? "Sem Bio" : user.bio!),
                       ],
                     ),
                     Row(
@@ -103,7 +103,8 @@ class ProfileDetailsPage extends StatelessWidget {
                           Icons.location_on_rounded,
                           color: Colors.black,
                         ),
-                        Text(user.location!),
+                        Text(
+                            user.location == null ? "Sem Bio" : user.location!),
                       ],
                     ),
                     const SizedBox(
@@ -143,8 +144,11 @@ class ProfileDetailsPage extends StatelessWidget {
                             child: CircularProgressIndicator(),
                           );
                         } else if (state is RepositoriesErrorState) {
-                          return Center(
-                            child: Text(state.errorMessage),
+                          return Scaffold(
+                            appBar: AppBar(title: Text("Erro na Consulta")),
+                            body: Center(
+                              child: Text(state.errorMessage),
+                            ),
                           );
                         } else {
                           return const Center(

@@ -25,8 +25,15 @@ class DetailsPage extends StatelessWidget {
               user: state.user!,
             );
           } else if (state is SearchErrorState) {
-            return Center(
-              child: Text(state.errorMessage),
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text("Erro ao consultar"),
+                centerTitle: true,
+                backgroundColor: Colors.black,
+              ),
+              body: Center(
+                child: Text(state.errorMessage),
+              ),
             );
           }
           return const Center(
