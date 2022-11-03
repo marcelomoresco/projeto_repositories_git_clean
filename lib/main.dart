@@ -6,9 +6,11 @@ import 'package:projeto_repositories_git_clean/src/features/search/presentator/b
 import 'package:projeto_repositories_git_clean/src/features/search/presentator/views/splash/splash_page.dart';
 import 'src/core/injection/injection_container.dart' as di;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await di.init();
 
   runApp(const MyApp());
